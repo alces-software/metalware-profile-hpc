@@ -1,11 +1,10 @@
 #!/bin/bash 
 #(c)2017 Alces Software Ltd. HPC Consulting Build Suite
-#Job ID: <JOB>
-#Cluster: <CLUSTER>
+#Job ID: <%=jobid%>
+#Cluster: <%=cluster%>
 
-if [ -f /root/.alcesconf ]; then
-  . /root/.alcesconf
-fi
+BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source $BASEDIR/config
 
 yum -y install nfs-utils
 cat << EOF >> /etc/fstab

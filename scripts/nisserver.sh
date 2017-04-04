@@ -1,9 +1,9 @@
 #!/bin/bash 
 #(c)2017 Alces Software Ltd. HPC Consulting Build Suite
-#Job ID: <JOB>
-#Cluster: <CLUSTER>
-
-source /root/.deployment
+#Job ID: <%=jobid%>
+#Cluster: <%=cluster%>
+BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source $BASEDIR/config
 
 yum install -y ypserv yp-tools
 

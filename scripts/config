@@ -1,56 +1,53 @@
 #!/bin/bash
 #(c)2017 Alces Software Ltd. HPC Consulting Build Suite
-#Job ID: <JOB>
-#Cluster: <CLUSTER>
+#Job ID: <%= jobid%>
+#Cluster: <%= cluster%>
 
-export _ALCES_BASE_HOSTNAME=headnode1
+export _ALCES_BASE_HOSTNAME=<%=nodename%>
 
 #infra,comppute
-export _ALCES_PROFILE=MASTER
-export _ALCES_BUILDSERVER=10.10.0.11
+export _ALCES_PROFILE=<%=profile%>
+export _ALCES_BUILDSERVER=<%=buildserver%>
 export _ALCES_BUILDSERVEREXTERNALDNS=mycluster.mydomain.com #Used when configuring external facing http services (This must be live in your site DNS)
 
-export _ALCES_CLUSTER=cluster
+export _ALCES_CLUSTER=<%=cluster%>
 
 export _ALCES_RELAYHOST=smtp.alces-software.com
 
-export _ALCES_SSHKEY="XXXX root@localhost.localdomain"
+export _ALCES_SSHKEY="AAAAB3NzaC1yc2EAAAADAQABAAABAQDhXUXuIDUG9BRva+m0BNSWg/E8OS7A153B1k0fUkSr2SNTUDRBIYNJ4XaX6l8HJNziugEeD2qhSX+qZT3jwr9t4tBcMh8hae72HXMaGPSQOFodNNAzaSAw8e5WYAbZAJnTMItrBkUO989ztwsAyfoeULxdW4ZRCpTECaqz1zklTEJxyUYwqJ3ar4n1cDdYsgXUldH2yopVSMx+EkH/NkQsg5GAqFJvP1yVvvhYgXBHF2tIA3iDWSU6HskAJpEIMjC0mxAWD0Gb3vNpPkp+1HbBPX1yp048EG4SF+jaLeJOrJqmMzngNuBJaUcNtP6UtsnCF7AVuCN1hAJxp1HKkY/v root@localhost.localdomain"
 
-export _ALCES_YUMTEMPLATE=yum.local
-
-#GENERATE with openssl passwd -1 $PASSWD
-export _ALCES_ROOTPASSWORDCRYPT="$1$4GLswpYN$9wsXWH9M4rRwgjGSCfCMt0"
+export _ALCES_YUMTEMPLATE=<%if localmirror%>yum.local<%else%>yum.upstream<%end%>
 
 #GENERIC NETWORKING
-export _ALCES_DOMAIN=cluster.local
-export _ALCES_NETWORKS="PRV MGT IB"
+export _ALCES_DOMAIN=<%=domain%>
+export _ALCES_NETWORKS="<%=networks.join(" ")%>"
 export _ALCES_SEARCHDOMAINS="prv.${_ALCES_DOMAIN} mgt.${_ALCES_DOMAIN} ib.${_ALCES_DOMAIN} ${_ALCES_DOMAIN}"
-export _ALCES_EXTERNALDNS=10.101.0.1
+export _ALCES_EXTERNALDNS=<%=externaldns%>
 export _ALCES_INTERNALDNS=${_ALCES_BUILDSERVER}
 
 
 #SPECIFIC NETWORKING
-export _ALCES_PRVINTERFACE="bond0"
-export _ALCES_PRVIP=
-export _ALCES_PRVNETMASK=255.255.0.0
-export _ALCES_PRVNETWORK=10.10.0.0
-export _ALCES_PRVGATEWAY=10.10.0.11
+export _ALCES_PRVINTERFACE="<%=prvinterface%>"
+export _ALCES_PRVIP="<%=prvip%>"
+export _ALCES_PRVNETMASK="<%=prvnetmask%>"
+export _ALCES_PRVNETWORK="<%=prvnetwork%>"
+export _ALCES_PRVGATEWAY="<%=prvgateway%>"
 export _ALCES_PRVDOMAIN="prv.${_ALCES_DOMAIN}"
-export _ALCES_PRVTYPE="Bond"
+export _ALCES_PRVTYPE=
 
-export _ALCES_MGTINTERFACE="mgt"
-export _ALCES_MGTIP=
-export _ALCES_MGTNETMASK=255.255.0.0
-export _ALCES_MGTNETWORK=10.11.0.0
-export _ALCES_MGTGATEWAY=
+export _ALCES_MGTINTERFACE="<%=mgtinterface%>"
+export _ALCES_MGTIP="<%=mgtip%>"
+export _ALCES_MGTNETMASK="<%=mgtnetmask%>"
+export _ALCES_MGTNETWORK="<%=mgtnetwork%>"
+export _ALCES_MGTGATEWAY="<%=mgtgateway%>"
 export _ALCES_MGTDOMAIN="mgt.${_ALCES_DOMAIN}"
-export _ALCES_MGTTYPE="Bridge"
+export _ALCES_MGTTYPE=
 
-export _ALCES_IBINTERFACE="ib0"
-export _ALCES_IBIP=
-export _ALCES_IBNETMASK=255.255.0.0
-export _ALCES_IBNETWORK=10.12.0.0
-export _ALCES_IBGATEWAY=
+export _ALCES_IBINTERFACE="<%=ibinterface%>"
+export _ALCES_IBIP="<%=ibip%>"
+export _ALCES_IBNETMASK="<%=ibnetmask%>"
+export _ALCES_IBNETWORK="<%=ibnetwork%>"
+export _ALCES_IBGATEWAY="<%=ibgateway%>"
 export _ALCES_IBDOMAIN="ib.${_ALCES_DOMAIN}"
 export _ALCES_IBTYPE=
 
@@ -61,11 +58,11 @@ export _ALCES_MGT_INTERFACES="em3"
 
 #IPMI (BMC) NETWORKING
 export _ALCES_BMCDOMAIN="bmc.${_ALCES_DOMAIN}"
-export _ALCES_BMCPASSWORD="A1ce550ftware"
-export _ALCES_BMCIP=
-export _ALCES_BMCNETMASK=$_ALCES_MGTNETMASK
-export _ALCES_BMCNETWORK=$_ALCES_MGTNETWORK
-export _ALCES_BMCGATEWAY=$_ALCES_MGTGATEWAY
+export _ALCES_BMCPASSWORD="<%=bmcpassword%>"
+export _ALCES_BMCIP="<%=bmcip%>"
+export _ALCES_BMCNETMASK="<%=bmcnetmask%>"
+export _ALCES_BMCNETWORK="<%=bmcnetwork%>"
+export _ALCES_BMCGATEWAY="<%=bmcgateway%>"
 export _ALCES_BMCCHANNEL=1
 export _ALCES_BMCUSER=2
 
@@ -104,8 +101,8 @@ install_file() {
 }
 
 run_script() {
-  SCRIPTS_PATH=/opt/metalware/deployment/epel/scripts/
-  SCRIPTS_URL=http://${_ALCES_BUILDSERVER}/deployment/epel/scripts/
+  SCRIPTS_PATH=/var/lib/metalware/rendered/scripts/${_ALCES_BASE_HOSTNAME}/
+  SCRIPTS_URL=http://${_ALCES_BUILDSERVER}/metalware/scripts/${_ALCES_BASE_HOSTNAME}/
   if [ -d $SCRIPTS_PATH ]; then
     cat $SCRIPTS_PATH/$1 | bash
   else
@@ -115,7 +112,7 @@ run_script() {
 }
 
 run_profile() {
-  run_script profile/`echo $_ALCES_PROFILE | tr '[:upper:]' '[:lower:]'`.sh
+  run_script `echo $_ALCES_PROFILE | tr '[:upper:]' '[:lower:]'`.sh
 }
 
 get_value() {

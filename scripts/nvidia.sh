@@ -5,6 +5,6 @@ echo "blacklist nouveau" >> /etc/modprobe.d/blacklist.conf
 
 rmmod -v nouveau
 
-curl http://${_ALCES_BUILDSERVER}/${_ALCES_CLUSTER}/upstream/NVIDIA-Linux-x86_64-375.39.run > /tmp/nvidia.run
+curl http://<%=buildserver%>/<%=cluster%>/upstream/NVIDIA-Linux-x86_64-375.39.run > /tmp/nvidia.run
 yum -y groupinstall "Development Tools"
 sh /tmp/nvidia.run -a -q -s

@@ -1,6 +1,6 @@
   host <%= nodename %> {
     hardware ethernet <%= hwaddr %>;
-    option host-name "<%= nodename %>.prv.cluster.local";
+    option host-name "<%= nodename %>.prv.<%=domain%>";
     option routers <%= hostip %>;
     filename "/pxelinux.0";
     fixed-address <%= fixedaddr %>;

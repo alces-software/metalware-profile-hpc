@@ -1,7 +1,9 @@
 #!/bin/bash
 #(c)2017 Alces Software Ltd. HPC Consulting Build Suite
-#Job ID: <JOB>
-#Cluster: <CLUSTER>
+#Job ID: <%=jobid%>
+#Cluster: <%=cluster%>
+BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source $BASEDIR/config
 
 if (lsmod | grep -q mlx4_core); then
   #install infiniband extras

@@ -1,9 +1,10 @@
 #!/bin/bash
 #(c)2017 Alces Software Ltd. HPC Consulting Build Suite
-#Job ID: <JOB>
-#Cluster: <CLUSTER>
+#Job ID: <%=jobid%>
+#Cluster: <%=cluster%>
 
-source /root/.deployment
+BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source $BASEDIR/config
 
 NET="BMC"
 NETDOMAIN=`get_value "_ALCES_${NET}DOMAIN"`

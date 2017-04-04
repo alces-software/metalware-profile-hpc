@@ -1,0 +1,16 @@
+networks:
+ - prv
+ - mgt
+
+prvinterface: em1
+prvip: 10.10.0.11
+
+mgtinterface: em2
+mgtip: 10.11.1.11
+
+ibinterface: ib0
+ibip: 10.12.0.11
+
+bmcip: 10.11.0.11
+
+localmirror: false

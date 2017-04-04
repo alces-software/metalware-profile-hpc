@@ -6,11 +6,12 @@
 BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source $BASEDIR/config
 
-run_script network-base.sh
-run_script network-ipmi.sh
+export ALCES_PROFILE="COMPUTE"
 
-for n in $_ALCES_NETWORKS; do
-  export _ALCES_NET=$n
-  run_script network-join.sh
-done
-
+run_script base.sh
+run_script networking.sh
+#run_script mlx5.sh
+run_script infiniband.sh
+run_script nisclient.sh
+run_script nfsclient.sh
+run_script postfixclient.sh

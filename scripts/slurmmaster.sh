@@ -1,9 +1,11 @@
 #!/bin/bash
 #(c)2017 Alces Software Ltd. HPC Consulting Build Suite
-#Job ID: <JOB>
-#Cluster: <CLUSTER>
+#Job ID: <%=jobid%>
+#Cluster: <%=cluster%>
 
-source /root/.deployment
+BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source $BASEDIR/config
+
 yum -y -e0 install mariadb mariadb-test mariadb-libs mariadb-embedded mariadb-embedded-devel mariadb-devel mariadb-bench
 yum -y -e0 install munge munge-devel munge-libs perl-Switch
 install_file mungekey /etc/munge/munge.key

@@ -23,8 +23,11 @@ lang en_GB
 timezone  Europe/London
 
 #REPOS
-#url --url=http://${_ALCES_BUILDSERVER}/${_ALCES_CLUSTER}/repo/centos/
+<%if localmirror%>
+url --url=http://<%=hostip%>/<%=cluster%>/repo/centos/
+<%else%>
 url --url=http://mirror.ox.ac.uk/sites/mirror.centos.org/7/os/x86_64/
+<%end%>
 
 #DISK
 %include /tmp/disk.part
@@ -88,10 +91,12 @@ ntpdate 0.centos.pool.ntp.org
 set -x -v
 exec 1>/root/ks-post.log 2>&1
 
-
-curl http://<%= hostip %>/deployment/epel/conf/config > /root/.deployment
+mkdir /root/deployment/
+cd /root/deployment
+curl http://<%= hostip %>/metalware/scripts/`hostname -s`/config > config
 export ALCES_PROFILE=compute
-source /root/.deployment
+pwd
+. ./config
 run_profile
 
 curl http://<%= hostip %>/metalware/exec/kscomplete.php?name=<%= nodename %>
