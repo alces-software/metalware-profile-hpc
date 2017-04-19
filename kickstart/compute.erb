@@ -24,7 +24,7 @@ timezone  Europe/London
 
 #REPOS
 <%if localmirror%>
-url --url=http://<%=hostip%>/<%=cluster%>/repo/centos/
+url --url=http://<%=buildserver%>/<%=cluster%>/repo/centos/
 <%else%>
 url --url=http://mirror.ox.ac.uk/sites/mirror.centos.org/7/os/x86_64/
 <%end%>
@@ -93,12 +93,12 @@ exec 1>/root/ks-post.log 2>&1
 
 mkdir /root/deployment/
 cd /root/deployment
-curl http://<%= hostip %>/metalware/scripts/`hostname -s`/config > config
+curl http://<%= buildserver %>/metalware/scripts/`hostname -s`/config > config
 export ALCES_PROFILE=compute
 pwd
 . ./config
 run_profile
 
-curl http://<%= hostip %>/metalware/exec/kscomplete.php?name=<%= nodename %>
+curl http://<%= buildserver %>/metalware/exec/kscomplete.php?name=<%= nodename %>
 
 %end
