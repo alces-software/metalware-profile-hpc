@@ -1,7 +1,7 @@
   host <%= nodename %> {
     hardware ethernet <%= hwaddr %>;
     option host-name "<%= nodename %>.prv.<%=domain%>";
-    option routers <%= hostip %>;
+    option routers <%= buildserver %>;
     filename "/pxelinux.0";
     fixed-address <%= fixedaddr %>;
   }
