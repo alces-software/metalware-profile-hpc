@@ -6,10 +6,10 @@ jobid: UNKNOWN
 cluster: testcluster
 profile: MASTER
 
-buildserver: 10.10.0.11
 domain: testcluster.cluster.local
 #GENERATE with openssl passwd -1 $PASSWD
-encrypted_root_password: '$1$NDHlCtV0$ZzePPVUZa02yEKErbV/z..'
+# This is 'password'.
+encrypted_root_password: '$1$ljsJHJMq$aUpshtR7MKh3IjrFIUK9.1'
 
 networks:
  - prv
@@ -42,3 +42,4 @@ bmcnetwork: 172.16.139.0
 bmcgateway: 0.0.0.0
 bmcpassword: 'Scitjaf4'
 
+disk: sda

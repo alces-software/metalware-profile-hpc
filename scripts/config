@@ -3,26 +3,26 @@
 #Job ID: <%= jobid%>
 #Cluster: <%= cluster%>
 
-export _ALCES_BASE_HOSTNAME=<%=nodename%>
+export _ALCES_BASE_HOSTNAME="<%=nodename%>"
 
-#infra,comppute
-export _ALCES_PROFILE=<%=profile%>
-export _ALCES_BUILDSERVER=<%=buildserver%>
+#infra,compute
+export _ALCES_PROFILE="<%=profile%>"
+export _ALCES_BUILDSERVER="<%=hostip%>"
 export _ALCES_BUILDSERVEREXTERNALDNS=mycluster.mydomain.com #Used when configuring external facing http services (This must be live in your site DNS)
 
-export _ALCES_CLUSTER=<%=cluster%>
+export _ALCES_CLUSTER="<%=cluster%>"
 
 export _ALCES_RELAYHOST=smtp.alces-software.com
 
 export _ALCES_SSHKEY="AAAAB3NzaC1yc2EAAAADAQABAAABAQDhXUXuIDUG9BRva+m0BNSWg/E8OS7A153B1k0fUkSr2SNTUDRBIYNJ4XaX6l8HJNziugEeD2qhSX+qZT3jwr9t4tBcMh8hae72HXMaGPSQOFodNNAzaSAw8e5WYAbZAJnTMItrBkUO989ztwsAyfoeULxdW4ZRCpTECaqz1zklTEJxyUYwqJ3ar4n1cDdYsgXUldH2yopVSMx+EkH/NkQsg5GAqFJvP1yVvvhYgXBHF2tIA3iDWSU6HskAJpEIMjC0mxAWD0Gb3vNpPkp+1HbBPX1yp048EG4SF+jaLeJOrJqmMzngNuBJaUcNtP6UtsnCF7AVuCN1hAJxp1HKkY/v root@localhost.localdomain"
 
-export _ALCES_YUMTEMPLATE=<%if localmirror%>yum.local<%else%>yum.upstream<%end%>
+export _ALCES_YUMTEMPLATE="<%if localmirror%>yum.local<%else%>yum.upstream<%end%>"
 
 #GENERIC NETWORKING
-export _ALCES_DOMAIN=<%=domain%>
+export _ALCES_DOMAIN="<%=domain%>"
 export _ALCES_NETWORKS="<%=networks.join(" ")%>"
 export _ALCES_SEARCHDOMAINS="prv.${_ALCES_DOMAIN} mgt.${_ALCES_DOMAIN} ib.${_ALCES_DOMAIN} ${_ALCES_DOMAIN}"
-export _ALCES_EXTERNALDNS=<%=externaldns%>
+export _ALCES_EXTERNALDNS="<%=externaldns%>"
 export _ALCES_INTERNALDNS=${_ALCES_BUILDSERVER}
 
 
@@ -67,7 +67,7 @@ export _ALCES_BMCCHANNEL=1
 export _ALCES_BMCUSER=2
 
 
-#Get Kennel cmdline options
+# Get Kernel cmdline options
 params=`cat /proc/cmdline`
 # Split them on spaces
 params_split=(${params// / })
@@ -91,24 +91,19 @@ eval `compgen -v | grep ^ALCES | while read n; do echo _$n=\`eval "echo \\\\$$n"
 export _ALCES_KEYS=`compgen -v | grep _ALCES | while read n; do echo '$'$n; done | xargs`
 
 install_file() {
-  FILES_PATH=/opt/metalware/deployment/epel/files/
-  FILES_URL=http://${_ALCES_BUILDSERVER}/deployment/epel/files/
-  if [ -d $FILES_PATH ]; then
-    cat $FILES_PATH/$1 | envsubst "$_ALCES_KEYS" > $2
-  else
-    curl $FILES_URL/$1 | envsubst "$_ALCES_KEYS" > $2
-  fi
+  # Following the extraction of deployment files from `metalware` to individual
+  # repos, this URL now assumes this repo has been cloned in the deployment
+  # server's Metalware repos directory as `hpc`. There is currently no other
+  # way to do this now we don't have the particular content for this repo
+  # embedded in the Metalware repo - TODO once we have a convention for where
+  # the repo will be we can change this/ this will be a less risky assumption.
+  FILES_URL=http://${_ALCES_BUILDSERVER}/repos/hpc/files
+  curl $FILES_URL/$1 | envsubst "$_ALCES_KEYS" > $2
 }
 
 run_script() {
-  SCRIPTS_PATH=/var/lib/metalware/rendered/scripts/${_ALCES_BASE_HOSTNAME}/
-  SCRIPTS_URL=http://${_ALCES_BUILDSERVER}/metalware/scripts/${_ALCES_BASE_HOSTNAME}/
-  if [ -d $SCRIPTS_PATH ]; then
-    cat $SCRIPTS_PATH/$1 | bash
-  else
-    curl $SCRIPTS_URL/$1 | bash
-  fi
-
+  SCRIPTS_URL=http://${_ALCES_BUILDSERVER}/metalware/scripts/${_ALCES_BASE_HOSTNAME}
+  curl $SCRIPTS_URL/$1 | bash
 }
 
 run_profile() {

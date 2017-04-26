@@ -1,6 +1,6 @@
 #!/bin/bash
 
-curl http://<%=buildserver%>/<%=cluster%>/upstream/MLNX_OFED_LINUX-4.0-1.0.1.0-rhel7.3-x86_64.tgz > /tmp/MLNX_OFED_LINUX-4.0-1.0.1.0-rhel7.3-x86_64.tgz
+curl http://<%=hostip%>/<%=cluster%>/upstream/MLNX_OFED_LINUX-4.0-1.0.1.0-rhel7.3-x86_64.tgz > /tmp/MLNX_OFED_LINUX-4.0-1.0.1.0-rhel7.3-x86_64.tgz
 tar -zxvf /tmp/MLNX_OFED_LINUX-4.0-1.0.1.0-rhel7.3-x86_64.tgz -C /tmp/
 rm -v /tmp/MLNX_OFED_LINUX-4.0-1.0.1.0-rhel7.3-x86_64.tgz
 cd /tmp/MLNX_OFED_LINUX-4.0-1.0.1.0-rhel7.3-x86_64

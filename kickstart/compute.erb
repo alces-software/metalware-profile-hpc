@@ -1,5 +1,6 @@
 #!/bin/bash
 #(c)2017 Alces Software Ltd. HPC Consulting Build Suite
+# vim: set filetype=kickstart :
 
 #MISC
 text
@@ -38,7 +39,7 @@ set -x -v
 exec 1>/tmp/ks-pre.log 2>&1
 
 DISKFILE=/tmp/disk.part
-disk1="sda"
+disk1="<%= disk %>"
 bootloaderappend="console=tty0 console=ttyS1,115200n8"
 cat > $DISKFILE << EOF
 zerombr
@@ -68,9 +69,6 @@ xterm
 xclock
 tigervnc-server
 ntpdate
-#Required for cobbler completion
-#For cobbler postscripts
-wget
 vconfig
 bridge-utils
 patch
