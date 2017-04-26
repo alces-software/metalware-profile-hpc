@@ -91,24 +91,19 @@ eval `compgen -v | grep ^ALCES | while read n; do echo _$n=\`eval "echo \\\\$$n"
 export _ALCES_KEYS=`compgen -v | grep _ALCES | while read n; do echo '$'$n; done | xargs`
 
 install_file() {
-  FILES_PATH=/opt/metalware/deployment/epel/files/
-  FILES_URL=http://${_ALCES_BUILDSERVER}/deployment/epel/files/
-  if [ -d $FILES_PATH ]; then
-    cat $FILES_PATH/$1 | envsubst "$_ALCES_KEYS" > $2
-  else
-    curl $FILES_URL/$1 | envsubst "$_ALCES_KEYS" > $2
-  fi
+  # Following the extraction of deployment files from `metalware` to individual
+  # repos, this URL now assumes this repo has been cloned in the deployment
+  # server's Metalware repos directory as `hpc`. There is currently no other
+  # way to do this now we don't have the particular content for this repo
+  # embedded in the Metalware repo - TODO once we have a convention for where
+  # the repo will be we can change this/ this will be a less risky assumption.
+  FILES_URL=http://${_ALCES_BUILDSERVER}/repos/hpc/files
+  curl $FILES_URL/$1 | envsubst "$_ALCES_KEYS" > $2
 }
 
 run_script() {
-  SCRIPTS_PATH=/var/lib/metalware/rendered/scripts/${_ALCES_BASE_HOSTNAME}/
-  SCRIPTS_URL=http://${_ALCES_BUILDSERVER}/metalware/scripts/${_ALCES_BASE_HOSTNAME}/
-  if [ -d $SCRIPTS_PATH ]; then
-    cat $SCRIPTS_PATH/$1 | bash
-  else
-    curl $SCRIPTS_URL/$1 | bash
-  fi
-
+  SCRIPTS_URL=http://${_ALCES_BUILDSERVER}/metalware/scripts/${_ALCES_BASE_HOSTNAME}
+  curl $SCRIPTS_URL/$1 | bash
 }
 
 run_profile() {
