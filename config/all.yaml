@@ -43,3 +43,4 @@ bmcnetwork: 172.16.139.0
 bmcgateway: 0.0.0.0
 bmcpassword: 'Scitjaf4'
 
+disk: sda
