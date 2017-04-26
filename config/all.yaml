@@ -6,7 +6,6 @@ jobid: UNKNOWN
 cluster: testcluster
 profile: MASTER
 
-buildserver: 10.10.0.11
 domain: testcluster.cluster.local
 #GENERATE with openssl passwd -1 $PASSWD
 # This is 'password'.

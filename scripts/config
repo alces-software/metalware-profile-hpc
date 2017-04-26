@@ -7,7 +7,7 @@ export _ALCES_BASE_HOSTNAME="<%=nodename%>"
 
 #infra,compute
 export _ALCES_PROFILE="<%=profile%>"
-export _ALCES_BUILDSERVER="<%=buildserver%>"
+export _ALCES_BUILDSERVER="<%=hostip%>"
 export _ALCES_BUILDSERVEREXTERNALDNS=mycluster.mydomain.com #Used when configuring external facing http services (This must be live in your site DNS)
 
 export _ALCES_CLUSTER="<%=cluster%>"
