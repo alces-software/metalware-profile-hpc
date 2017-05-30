@@ -2,11 +2,11 @@ iptail: <%= index+1 %>
 
 localmirror: true
 
-jobid: UNKNOWN
-cluster: testcluster
+jobid: <UNKNOWN>
+cluster: cluster
 profile: MASTER
 
-domain: testcluster.cluster.local
+domain: cluster.compute.estate
 #GENERATE with openssl passwd -1 $PASSWD
 # This is 'password'.
 encrypted_root_password: '$1$ljsJHJMq$aUpshtR7MKh3IjrFIUK9.1'
@@ -37,9 +37,9 @@ ibnetwork: 10.12.0.0
 ibgateway: 
 
 bmcip:
-bmcnetmask: 255.255.248.0
-bmcnetwork: 172.16.139.0
+bmcnetmask: 255.255.0.0
+bmcnetwork: 10.11.0.0
 bmcgateway: 0.0.0.0
-bmcpassword: 'Scitjaf4'
+bmcpassword: '9Quaftay'
 
 disk: sda

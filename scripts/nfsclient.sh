@@ -9,8 +9,6 @@ source $BASEDIR/config
 yum -y install nfs-utils
 cat << EOF >> /etc/fstab
 #NFS
-${_ALCES_BUILDSERVER}:/users	/users  nfs     intr,rsize=32768,wsize=32768,_netdev 0 0
-${_ALCES_BUILDSERVER}:/data	/data	nfs	intr,rsize=32768,wsize=32768,_netdev 0 0
+10.10.0.11:/export/users	/users  nfs     intr,rsize=32768,wsize=32768,_netdev 0 0
 EOF
-mkdir -p /data
 mkdir -p /users

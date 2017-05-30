@@ -7,8 +7,8 @@ BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source $BASEDIR/config
 
 yum -y install ypbind
-NISDOMAIN="${_ALCES_CLUSTER}"
-NISMASTER="${_ALCES_BUILDSERVER}"
+NISDOMAIN="aht"
+NISMASTER="10.10.0.11"
 echo "domain $NISDOMAIN server $NISMASTER" > /etc/yp.conf
 nisdomainname $NISDOMAIN
 echo "NISDOMAIN=$NISDOMAIN" >> /etc/sysconfig/network
